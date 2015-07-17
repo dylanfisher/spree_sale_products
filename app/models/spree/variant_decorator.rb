@@ -1,10 +1,6 @@
 Spree::Variant.class_eval do
-  #attr_accessible :sale_price
-  #alias_method :orig_price_in, :price_in
-
-  def sale_price=(sale_price)
-      self[:sale_price] = Spree::LocalizedNumber.parse(sale_price) if sale_price.present?
-  end
+  # we alias price_in method to show sale_price when present
+  alias_method :orig_price_in, :price_in
 
   def on_sale?
     self.sale_price > 0.0
@@ -17,9 +13,9 @@ Spree::Variant.class_eval do
     end
   end
 
-  #def price_in(currency, get_sale_price=true)
-  #  return orig_price_in(currency) unless get_sale_price == true
-  #  Spree::Price.new(:variant_id => self.id, :amount => self.sale_price, :currency => currency)
-  #end
+  def price_in(currency)
+    return orig_price_in(currency) unless sale_price.present?
+    Spree::Price.new(:variant_id => self.id, :amount => self.sale_price, :currency => currency)
+  end
   
 end
