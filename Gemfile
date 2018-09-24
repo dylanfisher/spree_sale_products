@@ -12,5 +12,5 @@ group :test do
   end
 end
 
-gem 'spree_volume_pricing', git: 'https://github.com/spree-contrib/spree_volume_pricing.git', :branch => '3-0-stable'
-gem 'spree', git: 'https://github.com/spree/spree.git', branch: '3-0-stable'
+gem 'spree_volume_pricing'
+gem 'spree'
